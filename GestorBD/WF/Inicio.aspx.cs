@@ -11,8 +11,9 @@ namespace GestorBD.WF
 {
     public partial class Inicio : System.Web.UI.Page
     {
-        conexion.conexion conexion = new conexion.conexion();
+        WF.Login login = new WF.Login();               
         private MySqlCommand command = new MySqlCommand();
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -20,8 +21,17 @@ namespace GestorBD.WF
             lblMensaje.Visible = false;
         }
 
+        public string getconexion()
+        {
+            string cadena = "Server=127.0.0.1;Port=3306;Database=ejemplo;Uid=" + Session["Usuario"] + ";password=" + Session["password"];
+            return cadena;
+        }
+
         public DataTable consultar(string consulta) {
-            try{ 
+
+            try
+            {            
+            conexion.conexion conexion = new conexion.conexion(getconexion());
             DataTable consultas = new DataTable();
             conexion.connection.Open();
             command.Connection = conexion.connection;
@@ -33,8 +43,9 @@ namespace GestorBD.WF
             return consultas;
             }
             catch (Exception ex)
-            {                
-                lblMensaje.Text = "Instruccion fallida " + ex;
+            { 
+                string msg = ex.ToString();                                
+                lblMensaje.Text = "Instruccion fallida " + msg.Substring(0, 160);
                 lblMensaje.Visible = true;
             }
             return null;
@@ -43,7 +54,8 @@ namespace GestorBD.WF
         public DataTable consultarBases()
         {
             try
-            {
+            {                
+                conexion.conexion conexion = new conexion.conexion(getconexion());
                 DataTable consultas = new DataTable();
                 conexion.connection.Open();
                 command.Connection = conexion.connection;
@@ -54,7 +66,8 @@ namespace GestorBD.WF
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = "Instruccion fallida " + ex;
+                string msg = ex.ToString();
+                lblMensaje.Text = "Instruccion fallida " + msg.Substring(0, 160);
                 lblMensaje.Visible = true;
             }
             return null;
@@ -71,7 +84,8 @@ namespace GestorBD.WF
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = "Instruccion fallida " + ex;
+                string msg = ex.ToString();
+                lblMensaje.Text = "Instruccion fallida " + msg.Substring(0, 160);
                 lblMensaje.Visible = true;
             }
 
@@ -88,10 +102,18 @@ namespace GestorBD.WF
                 llenarBases();
             } catch (Exception ex)
             {
-                lblMensaje.Text = "Instruccion fallida " + ex;
+                string msg = ex.ToString();
+                lblMensaje.Text = "Instruccion fallida " + msg.Substring(0, 160);
                 lblMensaje.Visible = true;
             }
             
+        }
+
+        protected void btnCerrar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("https://localhost:44300/WF/Login.aspx");
+            Session["Usuario"] = "";
+            Session["password"] = "";
         }
     }
 }

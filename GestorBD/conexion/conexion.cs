@@ -2,25 +2,32 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
+using GestorBD.WF;
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Bcpg;
 
 namespace GestorBD.conexion
 {
     public class conexion
     {
-        private string con = "Server=127.0.0.1;Port=3306;Database=ejemplo;Uid=root;password=123456";
+        WF.Login Login = new WF.Login();
+        public string user;
+        public string password;      
+        
+
         public MySqlConnection connection = new MySqlConnection();
 
-        private void connect()
+        private void connect(string cadcon)
         {
-            connection = new MySqlConnection(con);
+            connection = new MySqlConnection(cadcon);
 
         }
 
-        public conexion()
+        public conexion(string cadcon)
         {
-            connect();
+            connect(cadcon);
         }
          
 

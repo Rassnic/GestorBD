@@ -130,6 +130,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Web.config" />
     <Content Include="WF\Inicio.aspx" />
+    <Content Include="WF\Login.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="conexion\conexion.cs" />
@@ -140,6 +141,13 @@
     </Compile>
     <Compile Include="WF\Inicio.aspx.designer.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WF\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WF\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
